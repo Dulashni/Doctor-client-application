@@ -32,8 +32,18 @@
 		<br>Email:
 		<input id="docEmail" name="docEmail" type="text" class="form-control form-control-sm">
 	
-		<br>Status:
-		<input id="docStatus" name="docStatus" type="text" class="form-control form-control-sm">
+		
+		<br><br><!-- Status -->
+		<div class="input-group input-group-sm mb-3">
+		<div class="input-group-prepend">
+		<span class="input-group-text" id="lblName">Status: </span>
+		</div>
+			<select id="docStatus" name="docStatus">
+				<option value="0" selected="true" disabled="disabled">--Select Status--</option>
+				<option value="1">Available</option>
+				<option value="2">Unavailable</option>
+			</select>
+		</div>
 		
 		<br>
 		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary">
@@ -48,6 +58,12 @@
     
     <br>
     <div id="divItemsGrid">
+    	<%
+    	
+    	   Doctor docObj = new Doctor();
+    	   out.print(docObj.readDoctor());
+    	
+    	%>	
     </div>
     
     
