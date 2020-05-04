@@ -66,7 +66,7 @@ public class Doctor {
 					output += "<td>" + docContact + "</td>";
 					output += "<td>" + docEmail + "</td>";
 					output += "<td>" + docStatus + "</td>";
-					//methana
+					
 					// buttons
 					output += "<td><input name= 'btnUpdate' type= 'button' value= 'Update' class='btnUpdate btn btn-secondary'></td>"
 							+ "<td><input name='btnRemove' type='button' value= 'Remove' class='btnRemove btn btn-danger' data-docid='" + docID + "'>" + "</td></tr>";
@@ -82,6 +82,129 @@ public class Doctor {
 				output = "Error while reading the values.";
 				System.err.println(e.getMessage());
 		}
+	return output;
+}
+	
+	//implementing the inserting method
+public String insertDoctor(String doctorName, String specialization, String hospital, String contact, String email, String status){
+	    
+	    String output = "";
+		
+		try{
+	         Connection con = connect();
+	         if (con == null)
+	         {
+	             return "Error while connecting to the database";
+	         }
+	        
+	        // create a prepared statement
+	        String query = " insert into doctors(`docID`,`docName`,`docSpec`,`docHosp`,`docContact`,`docEmail`,`docStat`)" + " values (?, ?, ?, ?, ?, ?, ?)";
+	        PreparedStatement preparedStmt = con.prepareStatement(query);
+
+	        // binding values
+	        preparedStmt.setInt(1, 0);
+	        preparedStmt.setString(2, doctorName);
+	        preparedStmt.setString(3, specialization);
+	        preparedStmt.setString(4, hospital);
+	        preparedStmt.setInt(5, Integer.parseInt(contact));
+	        preparedStmt.setString(6, email);
+	        preparedStmt.setString(7, status);
+
+	        //execute the statement
+	        preparedStmt.execute();
+	        con.close();
+	        
+	        String newDoctor = readDoctor();
+	        output = "{\"status\":\"success\", \"data\": \"" + newDoctor + "\"}";
+
+		}catch(Exception e){
+
+	        output = "{\"status\":\"error\", \"data\":\"Error while inserting the doctor.\"}";
+	        System.err.println(e.getMessage());
+		}
+
+		return output;
+
+	}
+
+
+	//implementing the updating method
+public String updateDoctor(String doctorID, String doctorName, String specialization, String hospital, String contact, String email, String status){
+    
+    String output = "";
+
+    try{
+
+           Connection con = connect();
+           if (con == null){
+           return "Error while connecting to the database for updating.";
+           }
+           
+           // create a prepared statement
+
+           String query = "UPDATE doctors SET docName=?,docSpec=?,docHosp=?,docContact=?,docEmail=?,docStat=? WHERE docID=?";
+           PreparedStatement preparedStmt = con.prepareStatement(query);
+           
+           //binding values
+           preparedStmt.setString(1, doctorName);
+           preparedStmt.setString(2, specialization);
+           preparedStmt.setString(3, hospital);
+           preparedStmt.setInt(4, Integer.parseInt(contact));
+           preparedStmt.setString(5, email);
+           preparedStmt.setString(6, status);
+           preparedStmt.setInt(7, Integer.parseInt(doctorID));
+
+           // execute the statement
+           preparedStmt.execute();
+           con.close();
+
+           String newDoctor = readDoctor();
+	       output = "{\"status\":\"success\", \"data\": \"" + newDoctor + "\"}";
+           
+
+
+        }catch(Exception e){
+        	output = "{\"status\":\"error\", \"data\":\"Error while updating the doctor.\"}";
+			System.err.println(e.getMessage());
+        }
+
+        return output;
+
+ }
+
+
+	//implementing the deleting  method
+public String deleteDoctor(String doctorID){
+
+	String output = "";
+
+	try{
+
+		Connection con = connect();
+		if (con == null){
+
+         return "Error while connecting to the database for deleting.";
+        }
+
+        // create a prepared statement
+        String query = "delete from doctors where docID=?";
+        PreparedStatement preparedStmt = con.prepareStatement(query);
+        // binding values
+        preparedStmt.setInt(1, Integer.parseInt(doctorID));
+        // execute the statement
+        preparedStmt.execute();
+        con.close();
+
+        String newDoctor = readDoctor();
+	    output = "{\"status\":\"success\", \"data\": \"" + newDoctor + "\"}";
+
+
+	}catch (Exception e){
+
+		output = "{\"status\":\"error\", \"data\":\"Error while deleting  the doctor.\"}";
+		System.err.println(e.getMessage());
+	}
+
 	return output;
 }
 
