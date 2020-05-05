@@ -7,6 +7,7 @@ $(document).ready(function() {
 });
 
 //LAB 09 
+
 //implementing the save button click handler
 $(document).on("click", "#btnSave", function(event) {
 
@@ -60,6 +61,7 @@ function onDoctorSaveComplete(response, status) {
 		$("#alertError").text("Unknown error while saving..");
 		$("#alertError").show();
 	}
+	
 	$("#hiddocIDSave").val("");
 	$("#formDoctor")[0].reset();
 }
@@ -85,7 +87,7 @@ $(document).on("click", ".btnRemove", function(event) {
 	$.ajax({
 		url : "DoctorsAPI",
 		type : "DELETE",
-		data : "docID=" + $(this).data("docID"),
+		data : "docID=" + $(this).data("docid"),
 		dataType : "text",
 		complete : function(response, status) {
 			onDoctorDeleteComplete(response.responseText, status);

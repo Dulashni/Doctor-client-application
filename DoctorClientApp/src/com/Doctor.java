@@ -3,6 +3,7 @@ package com;
 import java.sql.*;
 
 
+
 public class Doctor {
 	
 	//connection the code to the mysql db
@@ -95,9 +96,11 @@ public String insertDoctor(String doctorName, String specialization, String hosp
 	         Connection con = connect();
 	         if (con == null)
 	         {
+	        	 
 	             return "Error while connecting to the database";
+	             
 	         }
-	        
+	         
 	        // create a prepared statement
 	        String query = " insert into doctors(`docID`,`docName`,`docSpec`,`docHosp`,`docContact`,`docEmail`,`docStat`)" + " values (?, ?, ?, ?, ?, ?, ?)";
 	        
@@ -118,11 +121,11 @@ public String insertDoctor(String doctorName, String specialization, String hosp
 	        
 	        String newDoctor = readDoctor();
 	        output = "{\"status\":\"success\", \"data\": \"" + newDoctor + "\"}";
-	        System.out.println("working");
+	        
 
 		}catch(Exception e){
 			
-	        output = "{\"status\":\"error\", \"data\":\"Error while inserting the doctor.\"}";
+	        output = "{\"status\":\"error\", \"data\": \"Error while inserting the doctor.\"}";
 	        System.err.println(e.getMessage());
 		}
 
