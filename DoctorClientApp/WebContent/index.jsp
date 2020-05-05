@@ -16,7 +16,7 @@
 <div class="col-6">
 	<h1>Doctor Management</h1>
 	<br>
-	<form id="formItem" name="formItem">
+	<form id="formDoctor" name="formDoctor">
 		Doctor Name:
 		<input id="docName" name="docName"  type="text"  class="form-control form-control-sm">
 		
@@ -24,30 +24,21 @@
 		<input id="docSpec" name="docSpec"  type="text"  class="form-control form-control-sm">
 	
 		<br>Hospital:
-		<input id="docHosp" name="docSpec"  type="text"  class="form-control form-control-sm">
+		<input id="docHosp" name="docHosp"  type="text"  class="form-control form-control-sm">
 	
 		<br>Contact No:
-		<input id="docCont" name="docCont"  type="text"  class="form-control form-control-sm">
+		<input id="docContact" name="docContact"  type="text"  class="form-control form-control-sm">
 	
 		<br>Email:
 		<input id="docEmail" name="docEmail" type="text" class="form-control form-control-sm">
 	
 		
-		<br><br><!-- Status -->
-		<div class="input-group input-group-sm mb-3">
-		<div class="input-group-prepend">
-		<span class="input-group-text" id="lblName">Status: </span>
-		</div>
-			<select id="docStatus" name="docStatus">
-				<option value="0" selected="true" disabled="disabled">--Select Status--</option>
-				<option value="1">Available</option>
-				<option value="2">Unavailable</option>
-			</select>
-		</div>
+		<br>Status:
+		<input id="docStat" name="docStat" type="text" class="form-control form-control-sm">
 		
 		<br>
 		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary">
-		<input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
+		<input type="hidden" id="hiddocIDSave" name="hiddocIDSave" value="">
 	
 	
 	
@@ -57,7 +48,7 @@
     <div id="alertError" class="alert alert-danger"></div>
     
     <br>
-    <div id="divItemsGrid">
+    <div id="divDoctorsGrid">
     	<%
     	
     	   Doctor docObj = new Doctor();

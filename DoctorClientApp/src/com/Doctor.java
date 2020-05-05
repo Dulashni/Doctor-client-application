@@ -58,7 +58,7 @@ public class Doctor {
 					String docContact = Integer.toString(rs.getInt("docContact"));
 					String docEmail = rs.getString("docEmail");
 					String docStatus = rs.getString("docStat");
-
+                    System.out.println(docID);
 					// Add into the html table
 					output += "<tr><td><input id='hiddocIDUpdate' name='hiddocIDUpdate' type='hidden' value='"+ docID + "'>" + docName + "</td>";
 					output += "<td>" + docSpec + "</td>";
@@ -70,6 +70,7 @@ public class Doctor {
 					// buttons
 					output += "<td><input name= 'btnUpdate' type= 'button' value= 'Update' class='btnUpdate btn btn-secondary'></td>"
 							+ "<td><input name='btnRemove' type='button' value= 'Remove' class='btnRemove btn btn-danger' data-docid='" + docID + "'>" + "</td></tr>";
+					
 					
 				}
 
@@ -99,6 +100,7 @@ public String insertDoctor(String doctorName, String specialization, String hosp
 	        
 	        // create a prepared statement
 	        String query = " insert into doctors(`docID`,`docName`,`docSpec`,`docHosp`,`docContact`,`docEmail`,`docStat`)" + " values (?, ?, ?, ?, ?, ?, ?)";
+	        
 	        PreparedStatement preparedStmt = con.prepareStatement(query);
 
 	        // binding values
@@ -116,15 +118,16 @@ public String insertDoctor(String doctorName, String specialization, String hosp
 	        
 	        String newDoctor = readDoctor();
 	        output = "{\"status\":\"success\", \"data\": \"" + newDoctor + "\"}";
+	        System.out.println("working");
 
 		}catch(Exception e){
-
+			
 	        output = "{\"status\":\"error\", \"data\":\"Error while inserting the doctor.\"}";
 	        System.err.println(e.getMessage());
 		}
 
 		return output;
-
+		
 	}
 
 
