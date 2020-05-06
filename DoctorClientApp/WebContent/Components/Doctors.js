@@ -37,49 +37,61 @@ $(document).on("click","#btnSave", function(event) {
 
 	// LAB 10
 	// If valid------------------------
-
 	var type = ($("#hidDocIDSave").val() == "") ? "POST" : "PUT"; 
-
-		$.ajax({
+	$.ajax(
+	{
+		
 		url : "DoctorsAPI",
 		type : type,
 		data : $("#formDoctor").serialize(),
 		dataType : "text",
-		complete : function(response, status) {
-			onDoctorSaveComplete(response.responseText, status);
+		complete : function(response, status)
+		{
+			onSaveDoctorComplete(response.responseText, status);
 		}
+		
+		
 	});
 
 });
 
-// completing the saving function
-function onDoctorSaveComplete(response, status) {
-	if (status == "success") {
-		var resultSet = JSON.parse(response);
 
-		if (resultSet.status.trim() == "success") {
-			$("#alertSuccess").text("Successfully saved.");
-			$("#alertSuccess").show();
+//completing the saving function
+function onSaveDoctorComplete(response, status){  
+	if (status == "success") 
+	{ 
+			var resultSet = JSON.parse(response); 
 
-			$("#divDoctorsGrid").html(resultSet.data);
-		} else if (resultSet.status.trim() == "error") {
-			$("#alertError").text(resultSet.data);
-			$("#alertError").show();
-		}
+			if (resultSet.status.trim() == "success")  
+				{ 
+				$("#alertSuccess").text("Successfully saved."); 
+				$("#alertSuccess").show(); 
 
-	} else if (status == "error") {
+				$("#divDoctorsGrid").html(resultSet.data); 
+				}
+			else if (resultSet.status.trim() == "error") 
+			{    $("#alertError").text(resultSet.data);   
+				$("#alertError").show(); 
+			} 
 
-		$("#alertError").text("Error while saving.");
-		$("#alertError").show();
-	} else {
-		$("#alertError").text("Unknown error while saving..");
-		$("#alertError").show();
-	}
+	} else if (status == "error") 
+	{ 
+		
+			$("#alertError").text("Error while saving.");
+			$("#alertError").show(); 
+		} else 
+			{  
+				$("#alertError").text("Unknown error while saving..");
+				$("#alertError").show(); 
+			} 
 
-	$("#hidDocIDSave").val("");
-	$("#formDoctor")[0].reset();
+$("#hidDocIDSave").val(""); 
+$("#formDoctor")[0].reset();
 
 }
+
+
+
 
 
 
@@ -179,7 +191,7 @@ function validateDoctorForm(){
 		return "Insert Doctor Availability status.";
 	}
 	
-	
+	return true;
 	
 	
 }

@@ -44,21 +44,18 @@ public class DoctorsAPI extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			
-		String output = doctorObj.insertDoctor(
-				request.getParameter("docName"),
-				request.getParameter("docSpec"),
-				request.getParameter("docHosp"),
-				request.getParameter("docContact"),
-				request.getParameter("docEmail"),
-				request.getParameter("docStat"));
+		
+		String output = doctorObj.insertDoctor(request.getParameter("docName"),
+												request.getParameter("docSpec"),
+												request.getParameter("docHosp"),
+												request.getParameter("docContact"),
+												request.getParameter("docEmail"),
+												request.getParameter("docStat"));
+				
 		
 		response.getWriter().write(output);
-		
-
 	}
 
 	/**
