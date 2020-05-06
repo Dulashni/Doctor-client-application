@@ -46,8 +46,15 @@ public class DoctorsAPI extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String output = doctorObj.insertDoctor(request.getParameter("docName"), request.getParameter("docSpec"), request.getParameter("docHosp"), request.getParameter("docContact"), request.getParameter("docEmail"), request.getParameter("docStat"));
+		
+			
+		String output = doctorObj.insertDoctor(
+				request.getParameter("docName"),
+				request.getParameter("docSpec"),
+				request.getParameter("docHosp"),
+				request.getParameter("docContact"),
+				request.getParameter("docEmail"),
+				request.getParameter("docStat"));
 		
 		response.getWriter().write(output);
 		
@@ -59,13 +66,14 @@ public class DoctorsAPI extends HttpServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
 		Map paras = getParasMap(request);
-		String output = doctorObj.updateDoctor(paras.get("hiddocIDSave").toString(),
-											   paras.get("docName").toString(),
-											   paras.get("docSpec").toString(),
-											   paras.get("docHosp").toString(),
+		String output = doctorObj.updateDoctor(paras.get("hidDocIDSave").toString(),
+											   paras.get("docName").toString().replace('+', ' '),
+											   paras.get("docSpec").toString().replace('+', ' '),
+											   paras.get("docHosp").toString().replace('+', ' '),
 											   paras.get("docContact").toString(),
-											   paras.get("docEmail").toString(),
+											   paras.get("docEmail").toString().replace("%40", "@"),
 											   paras.get("docStat").toString());
 		response.getWriter().write(output);
 	}
@@ -84,6 +92,7 @@ public class DoctorsAPI extends HttpServlet {
 	
 	
 	// Convert request parameters to a Map
+	
 	private static Map getParasMap(HttpServletRequest request){
 		
 	Map<String, String> map = new HashMap<String, String>();

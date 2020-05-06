@@ -1,15 +1,24 @@
 //hide the divisions used to show the status messages on the page load.
-$(document).ready(function() {
-	if ($("#alertSuccess").text().trim() == "") {
-		$("#alertSuccess").hide();
-	}
-	$("#alertError").hide();
+//$(document).ready(function() {
+	//if ($("#alertSuccess").text().trim() == "") {
+	//	$("#alertSuccess").hide();
+	//}
+//$("#alertError").hide();
+//});
+
+$(document).ready(function() 
+	{
+	 	$("#alertSuccess").hide();
+	
+		$("#alertError").hide();
+	
+		
 });
 
 //LAB 09 
 
 //implementing the save button click handler
-$(document).on("click", "#btnSave", function(event) {
+$(document).on("click","#btnSave", function(event) {
 
 	// Clear alerts---------------------
 
@@ -29,8 +38,9 @@ $(document).on("click", "#btnSave", function(event) {
 	// LAB 10
 	// If valid------------------------
 
-	var type = ($("#hiddocIDSave").val() == "") ? "POST" : "PUT";
-	$.ajax({
+	var type = ($("#hidDocIDSave").val() == "") ? "POST" : "PUT"; 
+
+		$.ajax({
 		url : "DoctorsAPI",
 		type : type,
 		data : $("#formDoctor").serialize(),
@@ -42,36 +52,41 @@ $(document).on("click", "#btnSave", function(event) {
 
 });
 
-
+// completing the saving function
 function onDoctorSaveComplete(response, status) {
 	if (status == "success") {
 		var resultSet = JSON.parse(response);
+
 		if (resultSet.status.trim() == "success") {
 			$("#alertSuccess").text("Successfully saved.");
 			$("#alertSuccess").show();
+
 			$("#divDoctorsGrid").html(resultSet.data);
 		} else if (resultSet.status.trim() == "error") {
 			$("#alertError").text(resultSet.data);
 			$("#alertError").show();
 		}
+
 	} else if (status == "error") {
+
 		$("#alertError").text("Error while saving.");
 		$("#alertError").show();
 	} else {
 		$("#alertError").text("Unknown error while saving..");
 		$("#alertError").show();
 	}
-	
-	$("#hiddocIDSave").val("");
+
+	$("#hidDocIDSave").val("");
 	$("#formDoctor")[0].reset();
+
 }
 
 
 
-//implementing the update button click handler
+// implementing the update button click handler
 $(document).on("click", ".btnUpdate", function(event)
 	{
-		$("#hiddocIDSave").val($(this).closest("tr").find('#hiddocIDUpdate').val());
+		$("#hidDocIDSave").val($(this).closest("tr").find('#hiddocIDUpdate').val());
 		$("#docName").val($(this).closest("tr").find('td:eq(0)').text());
 		$("#docSpec").val($(this).closest("tr").find('td:eq(1)').text());
 		$("#docHosp").val($(this).closest("tr").find('td:eq(2)').text());
@@ -95,7 +110,7 @@ $(document).on("click", ".btnRemove", function(event) {
 	});
 });
 
-
+//completing the delete function
 function onDoctorDeleteComplete(response, status) {
 	if (status == "success") {
 		var resultSet = JSON.parse(response);

@@ -13,6 +13,7 @@ public class Doctor {
 	 {
 	       Class.forName("com.mysql.jdbc.Driver");
 	       //Provide the correct details: DBServer/DBName, username, password
+	       //extra code line added to the DB server because of an server time zone error.
 	       con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcare?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root", "");
 	       
 	       //For testing
@@ -59,7 +60,7 @@ public class Doctor {
 					String docContact = Integer.toString(rs.getInt("docContact"));
 					String docEmail = rs.getString("docEmail");
 					String docStatus = rs.getString("docStat");
-                    System.out.println(docID);
+                 //   System.out.println(docID);
 					// Add into the html table
 					output += "<tr><td><input id='hiddocIDUpdate' name='hiddocIDUpdate' type='hidden' value='"+ docID + "'>" + docName + "</td>";
 					output += "<td>" + docSpec + "</td>";
@@ -106,6 +107,8 @@ public String insertDoctor(String doctorName, String specialization, String hosp
 	        
 	        PreparedStatement preparedStmt = con.prepareStatement(query);
 
+	        System.out.println("Test");	
+	        
 	        // binding values
 	        preparedStmt.setInt(1, 0);
 	        preparedStmt.setString(2, doctorName);
